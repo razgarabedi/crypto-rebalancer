@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { activateLicense } from '@/lib/license';
 import { getCurrentUser } from '@/lib/auth';
 
+// Force dynamic - never cache license activation
+export const dynamic = 'force-dynamic';
+
 /**
  * POST /api/license/activate
  * Activate a license key

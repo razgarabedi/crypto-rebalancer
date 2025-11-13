@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { checkLicense } from '@/lib/license';
 
+// Force dynamic - never cache license checks
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 /**
  * GET /api/license/check
  * Check if the system has a valid license

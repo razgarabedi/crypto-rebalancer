@@ -1,0 +1,56 @@
+# Environment Configuration Template
+# Copy this file to .env and fill in your values
+
+# ============================================
+# DATABASE (REQUIRED)
+# ============================================
+DATABASE_URL="postgresql://postgres:password@localhost:5432/crypto_rebalancer"
+
+# ============================================
+# AUTHENTICATION (REQUIRED)
+# ============================================
+# Generate with: openssl rand -base64 32
+JWT_SECRET="your-jwt-secret-change-this-in-production"
+
+# ============================================
+# LICENSE SYSTEM (REQUIRED)
+# ============================================
+# This MUST be provided by the software publisher
+# Ask your software provider for the LICENSE_SECRET value
+LICENSE_SECRET="your-license-secret-provided-by-publisher"
+
+# ============================================
+# OPTIONAL: Kraken API
+# ============================================
+# Only needed for live trading features
+# Get from: https://www.kraken.com/u/security/api
+KRAKEN_API_KEY=""
+KRAKEN_API_SECRET=""
+
+# ============================================
+# OPTIONAL: Application Settings
+# ============================================
+NEXT_PUBLIC_APP_URL="http://localhost:3010"
+
+# ============================================
+# SETUP INSTRUCTIONS
+# ============================================
+# 1. Copy this file:
+#    cp ENV_TEMPLATE.txt .env
+#
+# 2. Edit .env with your values
+#
+# 3. Initialize database:
+#    npx prisma generate
+#    npx prisma db push
+#
+# 4. Build and start:
+#    npm run build
+#    npm start
+#
+# 5. Get your Server ID from the activation modal
+#
+# 6. Contact software provider with Server ID
+#
+# 7. Activate with provided license key
+

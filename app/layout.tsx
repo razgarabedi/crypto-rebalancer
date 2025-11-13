@@ -7,6 +7,10 @@ import { I18nProvider } from "@/lib/hooks/use-i18n";
 import { CookieConsent } from "@/components/cookie-consent";
 import { LicenseGuard } from "@/components/license-guard";
 
+// Force dynamic rendering - don't cache or pre-render
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // Force scheduler startup on server side
 if (typeof window === 'undefined') {
   // eslint-disable-next-line @typescript-eslint/no-require-imports

@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { getServerId } from '@/lib/license';
 
+// Force dynamic - server ID must be fetched at runtime
+export const dynamic = 'force-dynamic';
+
 /**
  * GET /api/license/server-id
  * Get the unique server ID for this installation
