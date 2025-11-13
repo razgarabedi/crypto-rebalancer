@@ -1,0 +1,202 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Responsive utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden sm:block;
+  }
+  
+  .tablet-only {
+    @apply hidden md:block lg:hidden;
+  }
+  
+  .mobile-tablet {
+    @apply block lg:hidden;
+  }
+  
+  .desktop-tablet {
+    @apply hidden sm:block;
+  }
+  
+  /* Touch-friendly sizing */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] p-2;
+  }
+  
+  .touch-target-sm {
+    @apply min-h-[36px] min-w-[36px];
+  }
+  
+  /* Safe area for mobile devices with notches */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Responsive text sizing */
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+  
+  .text-responsive-sm {
+    @apply text-xs sm:text-sm md:text-base;
+  }
+  
+  .text-responsive-lg {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+  
+  /* Responsive spacing */
+  .space-responsive {
+    @apply space-y-2 sm:space-y-4 md:space-y-6;
+  }
+  
+  .gap-responsive {
+    @apply gap-2 sm:gap-4 md:gap-6;
+  }
+  
+  /* Responsive grid */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+  
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 lg:grid-cols-2;
+  }
+  
+  /* Responsive flex */
+  .flex-responsive {
+    @apply flex flex-col sm:flex-row;
+  }
+  
+  .flex-responsive-reverse {
+    @apply flex flex-col-reverse sm:flex-row;
+  }
+  
+  /* Prevent horizontal scroll on mobile */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Better scrolling on mobile */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile-friendly cards */
+  .card-mobile {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+    @apply p-3 sm:p-4 md:p-6;
+  }
+  
+  /* Responsive padding */
+  .p-responsive {
+    @apply p-3 sm:p-4 md:p-6;
+  }
+  
+  .px-responsive {
+    @apply px-3 sm:px-4 md:px-6;
+  }
+  
+  .py-responsive {
+    @apply py-3 sm:py-4 md:py-6;
+  }
+}
+
+
+
+@layer base {
+  :root {
+    /* GitHub Light Theme - Clean, high contrast */
+    --background: 0 0% 100%;
+    --foreground: 215 14% 17%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 14% 17%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 14% 17%;
+    --primary: 212 100% 47%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 95%;
+    --secondary-foreground: 215 14% 17%;
+    --muted: 210 17% 95%;
+    --muted-foreground: 215 12% 50%;
+    --accent: 210 17% 95%;
+    --accent-foreground: 215 14% 17%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 18% 87%;
+    --input: 210 18% 87%;
+    --ring: 212 100% 47%;
+    --chart-1: 212 100% 47%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 346 84% 61%;
+    --radius: 0.375rem;
+  }
+  .dark {
+    /* GitHub Dark Theme - Excellent contrast and eye comfort */
+    --background: 220 13% 13%;
+    --foreground: 213 31% 91%;
+    --card: 217 19% 15%;
+    --card-foreground: 213 31% 91%;
+    --popover: 217 19% 15%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 212 92% 63%;
+    --primary-foreground: 220 13% 13%;
+    --secondary: 215 14% 21%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 215 14% 21%;
+    --muted-foreground: 215 16% 65%;
+    --accent: 215 14% 21%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 213 31% 91%;
+    --border: 215 15% 25%;
+    --input: 215 15% 25%;
+    --ring: 212 92% 63%;
+    --chart-1: 212 92% 63%;
+    --chart-2: 142 71% 45%;
+    --chart-3: 262 83% 58%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 346 84% 61%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

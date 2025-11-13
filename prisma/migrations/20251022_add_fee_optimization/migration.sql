@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Portfolio" ADD COLUMN "orderType" TEXT NOT NULL DEFAULT 'market';
+ALTER TABLE "Portfolio" ADD COLUMN "totalFeesPaid" DOUBLE PRECISION NOT NULL DEFAULT 0.0;
+
+-- AlterTable
+ALTER TABLE "RebalanceHistory" ADD COLUMN "totalFees" DOUBLE PRECISION NOT NULL DEFAULT 0.0;
+

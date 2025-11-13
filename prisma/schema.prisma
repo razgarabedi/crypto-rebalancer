@@ -1,0 +1,200 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String?
+  password      String   // Hashed password
+  language      String   @default("en") // User's preferred language (en, de)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  // Kraken API Credentials (encrypted)
+  krakenApiKey       String?  // Encrypted API key
+  krakenApiSecret    String?  // Encrypted API secret
+  krakenApiAddedAt   DateTime? // When credentials were added
+  
+  // Relations
+  portfolios    Portfolio[]
+  sessions      Session[]
+  
+  @@index([email])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token        String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  
+  @@index([userId])
+  @@index([token])
+}
+
+model Portfolio {
+  id                    String   @id @default(cuid())
+  name                  String
+  userId                String   // Required: for multi-user support
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Target allocation
+  targetWeights         Json     // { "BTC": 40, "ETH": 30, "SOL": 20, "ADA": 10 }
+  
+  // Time-based rebalancing settings
+  rebalanceEnabled      Boolean  @default(false)
+  rebalanceInterval     String   @default("weekly") // daily, weekly, monthly
+  rebalanceThreshold    Float    @default(10.0)     // Minimum EUR difference
+  maxOrdersPerRebalance Int?                        // Optional order limit
+  
+  // Threshold-based rebalancing settings
+  thresholdRebalanceEnabled    Boolean  @default(false)  // Enable threshold-based rebalancing
+  thresholdRebalancePercentage Float    @default(3.0)    // Percentage deviation to trigger (e.g., 3%)
+  
+  // Fee optimization settings
+  orderType             String   @default("market") // market or limit (maker vs taker)
+  smartRoutingEnabled   Boolean  @default(true)     // Enable smart route selection
+  totalFeesPaid         Float    @default(0.0)      // Cumulative trading fees in EUR
+  
+  // Scheduler settings
+  schedulerEnabled      Boolean  @default(true)     // Enable automatic scheduler for this portfolio
+  checkFrequency        String   @default("hourly") // How often to check: hourly, every_2_hours, every_4_hours, daily
+  
+  // Timestamps
+  lastRebalancedAt      DateTime?
+  nextRebalanceAt       DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  // Rebalance history
+  rebalanceHistory      RebalanceHistory[]
+  
+  // Performance history
+  performanceHistory    PerformanceHistory[]
+  
+  @@index([userId])
+  @@index([rebalanceEnabled])
+  @@index([nextRebalanceAt])
+}
+
+model RebalanceHistory {
+  id                 String   @id @default(cuid())
+  portfolioId        String
+  portfolio          Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  
+  // Execution details
+  executedAt         DateTime @default(now())
+  success            Boolean
+  dryRun             Boolean  @default(false)
+  
+  // Portfolio state
+  portfolioValue     Float
+  
+  // Orders
+  ordersPlanned      Int
+  ordersExecuted     Int
+  ordersFailed       Int
+  totalValueTraded   Float
+  
+  // Fee tracking
+  totalFees          Float    @default(0.0) // Total fees paid for this rebalance in EUR
+  
+  // Results
+  orders             Json     // Array of executed orders
+  errors             Json?    // Array of error messages
+  
+  // Metadata
+  triggeredBy        String   @default("scheduler") // scheduler, manual, api
+  duration           Int?     // Execution time in milliseconds
+  
+  @@index([portfolioId])
+  @@index([executedAt])
+}
+
+model PerformanceHistory {
+  id            String   @id @default(cuid())
+  portfolioId   String
+  portfolio     Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  
+  // Performance data
+  totalValue    Float
+  timestamp     DateTime @default(now())
+  assetValues   Json?    // { "BTC": 25000, "ETH": 15000, "SOL": 5000 }
+  
+  // Returns (optional)
+  dailyReturn   Float?
+  weeklyReturn  Float?
+  monthlyReturn Float?
+  
+  @@index([portfolioId])
+  @@index([timestamp])
+  @@index([portfolioId, timestamp])
+}
+
+model License {
+  id              String   @id @default(cuid())
+  
+  // License key (encrypted/signed)
+  licenseKey      String   @unique
+  
+  // License details
+  licenseType     String   // "trial", "lifetime", "subscription"
+  isActive        Boolean  @default(true)
+  
+  // Expiration
+  expiresAt       DateTime? // null for lifetime licenses
+  
+  // Activation
+  activatedAt     DateTime @default(now())
+  activatedBy     String?  // Email or identifier of who activated
+  
+  // Server identification (optional - to tie license to specific installation)
+  serverId        String?  @unique // Unique identifier for the server/installation
+  
+  // Metadata
+  maxUsers        Int?     // null = unlimited
+  features        Json?    // { "advanced_analytics": true, "api_access": true }
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([licenseKey])
+  @@index([expiresAt])
+  @@index([isActive])
+}
+
+model SystemSettings {
+  id              String   @id @default(cuid())
+  
+  // License activation status
+  isActivated     Boolean  @default(false)
+  activatedAt     DateTime?
+  
+  // Current active license
+  licenseId       String?  @unique
+  licenseKey      String?
+  licenseType     String?  // "trial", "lifetime", "subscription"
+  licenseExpiresAt DateTime?
+  
+  // Server identification
+  serverId        String   @unique @default(cuid())
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
