@@ -351,122 +351,6 @@ export default function ProfilePage() {
               </Card>
             )}
 
-            {/* License Status */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="h-5 w-5" />
-                  Software License
-                </CardTitle>
-                <CardDescription>
-                  Your license activation status and details
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loadingLicense ? (
-                  <div className="text-center py-4 text-muted-foreground">
-                    Loading license information...
-                  </div>
-                ) : licenseInfo?.isActivated ? (
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900">
-                      <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-500 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-medium text-green-900 dark:text-green-100">
-                          License Activated
-                        </p>
-                        <p className="text-sm text-green-700 dark:text-green-300 mt-1">
-                          Your software is properly licensed and activated.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between py-2 border-b">
-                        <span className="text-muted-foreground">License Type</span>
-                        <span className="font-medium uppercase">
-                          {licenseInfo.licenseType || 'Unknown'}
-                        </span>
-                      </div>
-                      
-                      {licenseInfo.licenseType === 'lifetime' ? (
-                        <div className="flex justify-between py-2 border-b">
-                          <span className="text-muted-foreground">Expiration</span>
-                          <span className="font-medium text-green-600">
-                            Never (Lifetime)
-                          </span>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="flex justify-between py-2 border-b">
-                            <span className="text-muted-foreground">Expires On</span>
-                            <span className="font-medium">
-                              {licenseInfo.expiresAt 
-                                ? format(new Date(licenseInfo.expiresAt), 'PPP')
-                                : 'N/A'
-                              }
-                            </span>
-                          </div>
-                          <div className="flex justify-between py-2 border-b">
-                            <span className="text-muted-foreground">Days Remaining</span>
-                            <span className={`font-medium ${
-                              licenseInfo.daysRemaining && licenseInfo.daysRemaining < 30 
-                                ? 'text-orange-600' 
-                                : 'text-green-600'
-                            }`}>
-                              {licenseInfo.daysRemaining !== undefined 
-                                ? `${licenseInfo.daysRemaining} days`
-                                : 'N/A'
-                              }
-                            </span>
-                          </div>
-                        </>
-                      )}
-                      
-                      <div className="flex justify-between py-2">
-                        <span className="text-muted-foreground">Server ID</span>
-                        <code className="text-xs bg-muted px-2 py-1 rounded">
-                          {licenseInfo.serverId?.substring(0, 12)}...
-                        </code>
-                      </div>
-                    </div>
-
-                    {licenseInfo.daysRemaining !== undefined && licenseInfo.daysRemaining < 30 && (
-                      <div className="flex items-start gap-3 p-4 rounded-lg bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900">
-                        <AlertCircle className="h-5 w-5 text-orange-600 dark:text-orange-500 mt-0.5" />
-                        <div className="flex-1">
-                          <p className="font-medium text-orange-900 dark:text-orange-100">
-                            License Expiring Soon
-                          </p>
-                          <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
-                            Your license will expire in {licenseInfo.daysRemaining} days. Please renew to continue using the software.
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900">
-                      <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-500 mt-0.5" />
-                      <div className="flex-1">
-                        <p className="font-medium text-red-900 dark:text-red-100">
-                          No Active License
-                        </p>
-                        <p className="text-sm text-red-700 dark:text-red-300 mt-1">
-                          This software requires a valid license key to operate. Please activate your license.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <p className="text-sm text-muted-foreground">
-                      Contact us to obtain a license key, or if you already have one, you should be prompted to activate it on your next login.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
             {/* Update Profile Form */}
             <Card>
               <CardHeader>
@@ -774,6 +658,122 @@ export default function ProfilePage() {
                 </CardContent>
               </Card>
             )}
+
+            {/* License Status */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="h-5 w-5" />
+                  Software License
+                </CardTitle>
+                <CardDescription>
+                  Your license activation status and details
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {loadingLicense ? (
+                  <div className="text-center py-4 text-muted-foreground">
+                    Loading license information...
+                  </div>
+                ) : licenseInfo?.isActivated ? (
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 p-4 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900">
+                      <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-500 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="font-medium text-green-900 dark:text-green-100">
+                          License Activated
+                        </p>
+                        <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                          Your software is properly licensed and activated.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 text-sm">
+                      <div className="flex justify-between py-2 border-b">
+                        <span className="text-muted-foreground">License Type</span>
+                        <span className="font-medium uppercase">
+                          {licenseInfo.licenseType || 'Unknown'}
+                        </span>
+                      </div>
+                      
+                      {licenseInfo.licenseType === 'lifetime' ? (
+                        <div className="flex justify-between py-2 border-b">
+                          <span className="text-muted-foreground">Expiration</span>
+                          <span className="font-medium text-green-600">
+                            Never (Lifetime)
+                          </span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex justify-between py-2 border-b">
+                            <span className="text-muted-foreground">Expires On</span>
+                            <span className="font-medium">
+                              {licenseInfo.expiresAt 
+                                ? format(new Date(licenseInfo.expiresAt), 'PPP')
+                                : 'N/A'
+                              }
+                            </span>
+                          </div>
+                          <div className="flex justify-between py-2 border-b">
+                            <span className="text-muted-foreground">Days Remaining</span>
+                            <span className={`font-medium ${
+                              licenseInfo.daysRemaining && licenseInfo.daysRemaining < 30 
+                                ? 'text-orange-600' 
+                                : 'text-green-600'
+                            }`}>
+                              {licenseInfo.daysRemaining !== undefined 
+                                ? `${licenseInfo.daysRemaining} days`
+                                : 'N/A'
+                              }
+                            </span>
+                          </div>
+                        </>
+                      )}
+                      
+                      <div className="flex justify-between py-2">
+                        <span className="text-muted-foreground">Server ID</span>
+                        <code className="text-xs bg-muted px-2 py-1 rounded break-all">
+                          {licenseInfo.serverId || 'N/A'}
+                        </code>
+                      </div>
+                    </div>
+
+                    {licenseInfo.daysRemaining !== undefined && licenseInfo.daysRemaining < 30 && (
+                      <div className="flex items-start gap-3 p-4 rounded-lg bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900">
+                        <AlertCircle className="h-5 w-5 text-orange-600 dark:text-orange-500 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="font-medium text-orange-900 dark:text-orange-100">
+                            License Expiring Soon
+                          </p>
+                          <p className="text-sm text-orange-700 dark:text-orange-300 mt-1">
+                            Your license will expire in {licenseInfo.daysRemaining} days. Please renew to continue using the software.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3 p-4 rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900">
+                      <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-500 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="font-medium text-red-900 dark:text-red-100">
+                          No Active License
+                        </p>
+                        <p className="text-sm text-red-700 dark:text-red-300 mt-1">
+                          This software requires a valid license key to operate. Please activate your license.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground">
+                      Contact us to obtain a license key, or if you already have one, you should be prompted to activate it on your next login.
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
