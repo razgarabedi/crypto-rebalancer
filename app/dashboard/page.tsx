@@ -618,9 +618,9 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-6">
               {/* Stats Cards */}
-              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
                     <CardTitle className="text-sm font-medium">{t.dashboard.totalValue}</CardTitle>
                     <WalletIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -633,7 +633,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
                     <CardTitle className="text-sm font-medium">{t.dashboard.assets}</CardTitle>
                     <TrendingUpIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -644,7 +644,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
                     <CardTitle className="text-sm font-medium">{t.dashboard.rebalanceStatus}</CardTitle>
                     <AlertCircleIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -665,7 +665,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
                     <CardTitle className="text-sm font-medium">{t.dashboard.tradingFeesPaid}</CardTitle>
                     <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -680,10 +680,11 @@ export default function DashboardPage() {
                 </Card>
               </div>
 
-              {/* Additional Info Card for Last Rebalanced */}
-              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {/* Additional Info Cards */}
+              {/* Last Rebalanced and Order Type - 2 columns on mobile */}
+              <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-10">
                     <CardTitle className="text-sm font-medium">{t.dashboard.lastRebalanced}</CardTitle>
                     <RefreshCwIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -701,8 +702,25 @@ export default function DashboardPage() {
                   </CardContent>
                 </Card>
 
-                {/* Rebalancing Strategy Card */}
                 <Card>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                    <CardTitle className="text-sm font-medium">{t.dashboard.orderType}</CardTitle>
+                    <ActivityIcon className="h-4 w-4 text-muted-foreground" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">
+                      {currentDBPortfolio.orderType === 'limit' ? t.dashboard.limitMaker : t.dashboard.marketTaker}
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {currentDBPortfolio.orderType === 'limit' 
+                        ? t.dashboard.lowerFees
+                        : t.dashboard.higherFees}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Rebalancing Strategy Card - Full width on mobile, part of 3-column grid on larger screens */}
+                <Card className="col-span-2 lg:col-span-1">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.rebalancingStrategy}</CardTitle>
                     <ActivityIcon className="h-4 w-4 text-muted-foreground" />
@@ -746,23 +764,6 @@ export default function DashboardPage() {
                         ⏰ Next check: {timeUntilNextCheck}
                       </div>
                     )}
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">{t.dashboard.orderType}</CardTitle>
-                    <ActivityIcon className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">
-                      {currentDBPortfolio.orderType === 'limit' ? t.dashboard.limitMaker : t.dashboard.marketTaker}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      {currentDBPortfolio.orderType === 'limit' 
-                        ? t.dashboard.lowerFees
-                        : t.dashboard.higherFees}
-                    </p>
                   </CardContent>
                 </Card>
               </div>
@@ -811,18 +812,21 @@ export default function DashboardPage() {
                 title={t.dashboard.holdingsAndTarget}
                 description={t.dashboard.holdingsAndTargetDescription}
                 data={holdings}
+                compactMobile={true}
                 columns={[
                   { key: 'symbol', label: t.dashboard.asset, className: 'font-medium' },
                   { 
                     key: 'balance', 
                     label: t.dashboard.balance, 
                     className: 'text-right',
+                    mobileHidden: true, // Hide on mobile for compactness
                     render: (value) => (value as number).toFixed(6)
                   },
                   { 
                     key: 'price', 
                     label: t.dashboard.price, 
                     className: 'text-right',
+                    mobileHidden: true, // Hide on mobile for compactness
                     render: (value) => `€${(value as number).toFixed(2)}`
                   },
                   { 
@@ -850,7 +854,7 @@ export default function DashboardPage() {
                     render: (value) => {
                       const numValue = value as number;
                       return (
-                        <span className={numValue > 0 ? 'text-green-600' : numValue < 0 ? 'text-red-600' : ''}>
+                        <span className={numValue > 0 ? 'text-green-600 dark:text-green-400' : numValue < 0 ? 'text-red-600 dark:text-red-400' : ''}>
                           {numValue > 0 ? '+' : ''}{numValue.toFixed(2)}%
                         </span>
                       );
@@ -864,11 +868,11 @@ export default function DashboardPage() {
                       const numValue = value as number;
                       const diff = Math.abs(numValue);
                       if (diff > 5) {
-                        return <Badge variant="destructive">{t.dashboard.rebalance}</Badge>;
+                        return <Badge variant="destructive" className="text-xs">{t.dashboard.rebalance}</Badge>;
                       } else if (diff > 2) {
-                        return <Badge variant="outline" className="text-yellow-600">{t.dashboard.watch}</Badge>;
+                        return <Badge variant="outline" className="text-yellow-600 dark:text-yellow-500 text-xs">{t.dashboard.watch}</Badge>;
                       } else {
-                        return <Badge variant="outline" className="text-green-600">{t.dashboard.ok}</Badge>;
+                        return <Badge variant="outline" className="text-green-600 dark:text-green-400 text-xs">{t.dashboard.ok}</Badge>;
                       }
                     }
                   }

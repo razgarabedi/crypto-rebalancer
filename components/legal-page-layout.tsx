@@ -6,6 +6,13 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { UserNav } from '@/components/user-nav';
 import { ThemeToggle } from '@/components/theme-toggle';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 interface LegalPageLayoutProps {
   children: React.ReactNode;
@@ -52,6 +59,40 @@ export function LegalPageLayout({ children }: LegalPageLayoutProps) {
             </Link>
           </div>
           <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="hidden sm:flex">
+                  Legal
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/terms">Terms of Service</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/privacy">Privacy Policy</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/cookies">Cookie Policy</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/risk-disclosure">Risk Disclosure</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/disclaimer">Disclaimer</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/compliance">Compliance</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/legal/security">Security</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/legal/contact">Contact</Link>
+            </Button>
             {loading ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-rexerium-blue"></div>
             ) : isAuthenticated ? (
@@ -81,50 +122,55 @@ export function LegalPageLayout({ children }: LegalPageLayoutProps) {
       </main>
 
       <footer className="border-t bg-card">
-        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex items-center gap-2 mb-2">
-              <Image
-                src="/logo/logo.png"
-                alt="Rexerium Logo"
-                width={24}
-                height={24}
-                className="w-6 h-6 object-contain"
-              />
-              <span className="font-bold text-rexerium-blue font-poppins">REXERIUM</span>
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-5">
+          <div className="flex flex-col gap-3">
+            <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4">
+              {/* Left: Logo, Brand, Tagline */}
+              <div className="flex flex-col items-center sm:items-start gap-1.5">
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/logo/logo.png"
+                    alt="Rexerium Logo"
+                    width={20}
+                    height={20}
+                    className="w-5 h-5 object-contain"
+                  />
+                  <span className="font-bold text-rexerium-blue font-poppins text-sm">REXERIUM</span>
+                </div>
+                <p className="text-center sm:text-left text-xs font-inter text-muted-foreground">
+                  Intelligence. Engineered. Where systems evolve.
+                </p>
+              </div>
+              
+              {/* Middle: Copyright - Absolutely centered */}
+              <div className="absolute left-1/2 top-0 -translate-x-1/2 hidden sm:block">
+                <p className="text-center text-xs text-muted-foreground font-inter whitespace-nowrap">
+                  © {new Date().getFullYear()} Rexerium Crypto. All rights reserved. | <a href="https://rexerium.com" target="_blank" rel="noopener noreferrer" className="hover:text-rexerium-cyan transition-colors">rexerium.com</a>
+                </p>
+              </div>
+              
+              {/* Spacer for mobile - shows copyright below */}
+              <div className="w-full sm:hidden order-3">
+                <p className="text-center text-xs text-muted-foreground font-inter">
+                  © {new Date().getFullYear()} Rexerium Crypto. All rights reserved. | <a href="https://rexerium.com" target="_blank" rel="noopener noreferrer" className="hover:text-rexerium-cyan transition-colors">rexerium.com</a>
+                </p>
+              </div>
             </div>
-            <p className="text-center text-sm font-inter text-muted-foreground mb-4">
-              Intelligence. Engineered. Where systems evolve.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
+            
+            {/* Bottom: Links */}
+            <div className="flex flex-wrap justify-center sm:justify-end gap-3 sm:gap-4 text-xs">
               <Link href="/legal/terms" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Terms of Service
               </Link>
+              <span className="text-muted-foreground">•</span>
               <Link href="/legal/privacy" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Privacy Policy
               </Link>
-              <Link href="/legal/cookies" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
-                Cookie Policy
-              </Link>
-              <Link href="/legal/risk-disclosure" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
-                Risk Disclosure
-              </Link>
-              <Link href="/legal/disclaimer" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
-                Disclaimer
-              </Link>
-              <Link href="/legal/compliance" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
-                Compliance
-              </Link>
-              <Link href="/legal/security" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
-                Security
-              </Link>
+              <span className="text-muted-foreground">•</span>
               <Link href="/legal/contact" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Contact
               </Link>
             </div>
-            <p className="text-center text-xs text-muted-foreground font-inter">
-              © {new Date().getFullYear()} Rexerium Crypto. All rights reserved.
-            </p>
           </div>
         </div>
       </footer>

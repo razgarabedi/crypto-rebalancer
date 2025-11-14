@@ -31,7 +31,10 @@ export default function ContactPage() {
                     <p className="text-sm text-muted-foreground">
                       abedihassan78@gmail.com
                     </p>
-                  
+                    <p className="font-medium mt-3">Website</p>
+                    <p className="text-sm text-muted-foreground">
+                      <a href="https://rexerium.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-rexerium-cyan transition-colors underline">rexerium.com</a>
+                    </p>
                   </div>
                 </div>
               </section>
