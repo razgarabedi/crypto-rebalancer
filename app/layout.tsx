@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Poppins, Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -17,11 +18,21 @@ if (typeof window === 'undefined') {
   require('@/lib/force-scheduler-startup');
 }
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+// Rexerium Brand Fonts
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap",
 });
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -29,8 +40,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Crypto Portfolio Rebalancer - Crypto Portfolio Management",
-  description: "Manage and rebalance your crypto portfolio with crypto asset integration",
+  title: "Rexerium Crypto - Intelligent Asset Management for Digital Finance",
+  description: "Balance Your Future. Intelligent asset management for digital finance. Empower your crypto decisions with precision and intelligence.",
 };
 
 export const viewport: Viewport = {
@@ -39,8 +50,8 @@ export const viewport: Viewport = {
   maximumScale: 5,
   userScalable: true,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#1E3A8A' }, // Rexerium Blue
+    { media: '(prefers-color-scheme: dark)', color: '#06B6D4' }, // Electric Cyan
   ],
 };
 
@@ -52,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.variable} ${inter.variable} ${geistMono.variable} antialiased font-sans`}
       >
         <ThemeProvider
           attribute="class"

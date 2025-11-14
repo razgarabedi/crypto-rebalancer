@@ -9,17 +9,78 @@ if (typeof window === 'undefined') {
   require('@/lib/startup');
 }
 
+// Balance Scales Visual Component
+function BalanceScales() {
+  return (
+    <div className="relative flex items-center justify-center my-8 sm:my-12">
+      <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
+        {/* Glow effect */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-full h-full rounded-full bg-rexerium-cyan/20 blur-3xl animate-pulse" />
+        </div>
+        
+        {/* Balance Scales SVG */}
+        <svg
+          viewBox="0 0 200 200"
+          className="w-full h-full relative z-10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Base */}
+          <rect x="90" y="160" width="20" height="30" fill="currentColor" className="text-rexerium-blue" />
+          
+          {/* Central pillar */}
+          <rect x="95" y="60" width="10" height="100" fill="currentColor" className="text-rexerium-blue" />
+          
+          {/* Crossbar */}
+          <rect x="20" y="60" width="160" height="6" fill="currentColor" className="text-rexerium-blue" />
+          
+          {/* Left scale */}
+          <path
+            d="M 30 66 L 30 100 L 80 100 L 80 66 Z"
+            fill="currentColor"
+            className="text-rexerium-cyan"
+            style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.6))' }}
+          />
+          
+          {/* Right scale */}
+          <path
+            d="M 120 66 L 120 100 L 170 100 L 170 66 Z"
+            fill="currentColor"
+            className="text-rexerium-cyan"
+            style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.6))' }}
+          />
+          
+          {/* Connecting lines */}
+          <line x1="55" y1="66" x2="55" y2="60" stroke="currentColor" strokeWidth="2" className="text-rexerium-blue" />
+          <line x1="145" y1="66" x2="145" y2="60" stroke="currentColor" strokeWidth="2" className="text-rexerium-blue" />
+          
+          {/* Glow dots on scales */}
+          <circle cx="55" cy="83" r="4" fill="currentColor" className="text-rexerium-cyan animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(188 94% 43%))' }} />
+          <circle cx="145" cy="83" r="4" fill="currentColor" className="text-rexerium-cyan animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(188 94% 43%))' }} />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
-          <h1 className="text-lg sm:text-2xl font-bold truncate">Crypto Portfolio Rebalancer</h1>
+          <div className="flex items-center gap-3">
+            {/* Logo placeholder - circular R */}
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-rexerium-blue flex items-center justify-center">
+              <span className="text-white font-bold text-lg sm:text-xl font-poppins">R</span>
+            </div>
+            <h1 className="text-lg sm:text-2xl font-bold truncate font-poppins text-rexerium-blue">REXERIUM</h1>
+          </div>
           <div className="flex gap-2">
             <Button asChild variant="ghost" size="sm">
               <Link href="/auth/login">Login</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="bg-rexerium-blue hover:bg-rexerium-blue/90 text-white">
               <Link href="/auth/register">Sign Up</Link>
             </Button>
           </div>
@@ -28,18 +89,34 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24 lg:py-32">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
-              Crypto Portfolio Rebalancing Made Simple
+          <div className="mx-auto max-w-4xl text-center">
+            {/* Balance Scales Visual */}
+            <BalanceScales />
+            
+            {/* Main Tagline */}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight font-poppins text-foreground">
+              Balance Your Future.
             </h2>
-            <p className="mt-4 sm:mt-6 text-base sm:text-lg leading-relaxed text-muted-foreground px-2">
-              Automatically monitor and rebalance your cryptocurrency portfolio using crypto asset APIs.
-              Keep your investments aligned with your target allocation.
+            
+            {/* Positioning Statement */}
+            <p className="mt-6 sm:mt-8 text-xl sm:text-2xl md:text-3xl font-medium text-rexerium-blue font-inter">
+              Intelligent asset management for digital finance.
             </p>
+            
+            {/* Core Value Proposition */}
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground px-2 max-w-2xl mx-auto font-inter">
+              Intelligence + empowerment in crypto decisions. Where systems evolve.
+            </p>
+            
+            {/* CTA */}
             <div className="mt-8 sm:mt-10 flex items-center justify-center gap-3 sm:gap-4 px-4">
-              <Button asChild size="lg" className="touch-target">
+              <Button 
+                asChild 
+                size="lg" 
+                className="touch-target bg-rexerium-blue hover:bg-rexerium-blue/90 text-white shadow-lg shadow-rexerium-cyan/20 hover:shadow-rexerium-cyan/30 transition-all"
+              >
                 <Link href="/dashboard">
-                  Go to Dashboard
+                  Get Started
                   <ArrowRightIcon className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -66,53 +143,56 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="border-t bg-muted/50">
+        <section className="border-t bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24">
             <div className="mx-auto max-w-5xl">
-              <h3 className="text-center text-2xl sm:text-3xl font-bold mb-2">Features</h3>
-              <p className="text-center text-muted-foreground text-sm sm:text-base mb-8 sm:mb-12 px-4">
-                Everything you need to manage your crypto portfolio
+              <h3 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold mb-2 font-poppins text-foreground">
+                Precision. Intelligence. Empowerment.
+              </h3>
+              <p className="text-center text-muted-foreground text-sm sm:text-base md:text-lg mb-8 sm:mb-12 px-4 font-inter">
+                Engineered for crypto investors, fintech enthusiasts, and portfolio managers
               </p>
               <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-rexerium-blue/20 hover:border-rexerium-cyan/40">
                   <CardHeader className="space-y-3 sm:space-y-4">
-                    <BarChart3Icon className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-                    <CardTitle className="text-lg sm:text-xl">Portfolio Visualization</CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      View your portfolio allocation with interactive charts and graphs
+                    <BarChart3Icon className="h-8 w-8 sm:h-10 sm:w-10 text-rexerium-cyan" />
+                    <CardTitle className="text-lg sm:text-xl font-poppins">Analytical Precision</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed font-inter">
+                      View your portfolio allocation with interactive charts and graphs. Data-driven insights for informed decisions.
                     </CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow">
+                <Card className="hover:shadow-lg transition-shadow border-rexerium-blue/20 hover:border-rexerium-cyan/40">
                   <CardHeader className="space-y-3 sm:space-y-4">
-                    <RefreshCwIcon className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-                    <CardTitle className="text-lg sm:text-xl">Auto Rebalancing</CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      Get recommendations on buying and selling to match your target allocation
+                    <RefreshCwIcon className="h-8 w-8 sm:h-10 sm:w-10 text-rexerium-cyan" />
+                    <CardTitle className="text-lg sm:text-xl font-poppins">Intelligent Rebalancing</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed font-inter">
+                      Automated recommendations to maintain optimal allocation. Precision-engineered algorithms for balanced portfolios.
                     </CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow sm:col-span-2 md:col-span-1">
+                <Card className="hover:shadow-lg transition-shadow sm:col-span-2 md:col-span-1 border-rexerium-blue/20 hover:border-rexerium-cyan/40">
                   <CardHeader className="space-y-3 sm:space-y-4">
-                    <TrendingUpIcon className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-                    <CardTitle className="text-lg sm:text-xl">Real-time Prices</CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      Live cryptocurrency prices from crypto asset APIs for accurate calculations
+                    <TrendingUpIcon className="h-8 w-8 sm:h-10 sm:w-10 text-rexerium-cyan" />
+                    <CardTitle className="text-lg sm:text-xl font-poppins">Real-time Intelligence</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed font-inter">
+                      Live cryptocurrency prices with accurate calculations. Stay ahead with real-time market data.
                     </CardDescription>
                   </CardHeader>
                 </Card>
 
-                <Card className="hover:shadow-lg transition-shadow sm:col-span-2 md:col-span-3 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
-                  <CardHeader className="space-y-3 sm:space-y-4">
+                <Card className="hover:shadow-lg transition-shadow sm:col-span-2 md:col-span-3 border-rexerium-cyan/30 bg-gradient-to-br from-rexerium-cyan/10 to-rexerium-blue/10 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-rexerium-cyan/5 to-transparent" />
+                  <CardHeader className="space-y-3 sm:space-y-4 relative z-10">
                     <div className="flex items-center gap-2">
-                      <Brain className="h-8 w-8 sm:h-10 sm:w-10 text-primary" />
-                      <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                      <Brain className="h-8 w-8 sm:h-10 sm:w-10 text-rexerium-cyan" style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.5))' }} />
+                      <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-rexerium-cyan" style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.5))' }} />
                     </div>
-                    <CardTitle className="text-lg sm:text-xl">Smart Analytics & AI Insights</CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      A crypto strategist + data scientist in one. It doesn&apos;t just show numbers — it interprets them, warns you when you&apos;re off balance, and nudges you toward smarter moves.
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl font-poppins">Intelligence. Engineered.</CardTitle>
+                    <CardDescription className="text-sm sm:text-base leading-relaxed font-inter">
+                      Where systems evolve. A crypto strategist + data scientist in one. It doesn&apos;t just show numbers — it interprets them, warns you when you&apos;re off balance, and empowers you toward smarter moves.
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -125,34 +205,43 @@ export default function Home() {
       <footer className="border-t bg-card">
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded-full bg-rexerium-blue flex items-center justify-center">
+                <span className="text-white font-bold text-sm font-poppins">R</span>
+              </div>
+              <span className="font-bold text-rexerium-blue font-poppins">REXERIUM</span>
+            </div>
+            <p className="text-center text-sm font-inter text-muted-foreground mb-4">
+              Intelligence. Engineered. Where systems evolve.
+            </p>
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
-              <Link href="/legal/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/terms" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Terms of Service
               </Link>
-              <Link href="/legal/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/privacy" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Privacy Policy
               </Link>
-              <Link href="/legal/cookies" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/cookies" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Cookie Policy
               </Link>
-              <Link href="/legal/risk-disclosure" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/risk-disclosure" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Risk Disclosure
               </Link>
-              <Link href="/legal/disclaimer" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/disclaimer" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Disclaimer
               </Link>
-              <Link href="/legal/compliance" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/compliance" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Compliance
               </Link>
-              <Link href="/legal/security" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/security" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Security
               </Link>
-              <Link href="/legal/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/legal/contact" className="text-muted-foreground hover:text-rexerium-cyan transition-colors font-inter">
                 Contact
               </Link>
             </div>
-            <p className="text-center text-xs text-muted-foreground">
-              © {new Date().getFullYear()} Crypto Portfolio Rebalancer. All rights reserved.
+            <p className="text-center text-xs text-muted-foreground font-inter">
+              © {new Date().getFullYear()} Rexerium Crypto. All rights reserved.
             </p>
           </div>
         </div>

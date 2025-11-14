@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['var(--font-poppins)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+  			poppins: ['var(--font-poppins)', 'sans-serif'],
+  			inter: ['var(--font-inter)', 'sans-serif'],
+  		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -49,6 +54,12 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			rexerium: {
+  				blue: 'hsl(var(--rexerium-blue))',
+  				cyan: 'hsl(var(--rexerium-cyan))',
+  				dark: 'hsl(var(--rexerium-dark))',
+  				light: 'hsl(var(--rexerium-light))'
   			}
   		},
   		borderRadius: {

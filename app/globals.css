@@ -134,59 +134,72 @@
 
 @layer base {
   :root {
-    /* GitHub Light Theme - Clean, high contrast */
-    --background: 0 0% 100%;
-    --foreground: 215 14% 17%;
+    /* Rexerium Light Theme - Brand Colors */
+    /* #1E3A8A (dark blue), #06B6D4 (electric cyan), #1E1E1E (dark grey), #F3F4F6 (light grey) */
+    --background: 220 14% 96%; /* #F3F4F6 */
+    --foreground: 0 0% 12%; /* #1E1E1E */
     --card: 0 0% 100%;
-    --card-foreground: 215 14% 17%;
+    --card-foreground: 0 0% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 14% 17%;
-    --primary: 212 100% 47%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 220 65% 33%; /* #1E3A8A - Rexerium Dark Blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 17% 95%;
-    --secondary-foreground: 215 14% 17%;
-    --muted: 210 17% 95%;
-    --muted-foreground: 215 12% 50%;
-    --accent: 210 17% 95%;
-    --accent-foreground: 215 14% 17%;
+    --secondary: 220 14% 96%; /* #F3F4F6 */
+    --secondary-foreground: 0 0% 12%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 188 94% 43%; /* #06B6D4 - Electric Cyan */
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 210 18% 87%;
-    --input: 210 18% 87%;
-    --ring: 212 100% 47%;
-    --chart-1: 212 100% 47%;
-    --chart-2: 142 71% 45%;
+    --border: 220 18% 87%;
+    --input: 220 18% 87%;
+    --ring: 188 94% 43%; /* Electric Cyan for focus rings */
+    --chart-1: 220 65% 33%; /* Rexerium Dark Blue */
+    --chart-2: 188 94% 43%; /* Electric Cyan */
     --chart-3: 262 83% 58%;
     --chart-4: 38 92% 50%;
     --chart-5: 346 84% 61%;
     --radius: 0.375rem;
+    
+    /* Rexerium Brand Colors */
+    --rexerium-blue: 220 65% 33%; /* #1E3A8A */
+    --rexerium-cyan: 188 94% 43%; /* #06B6D4 */
+    --rexerium-dark: 0 0% 12%; /* #1E1E1E */
+    --rexerium-light: 220 14% 96%; /* #F3F4F6 */
   }
   .dark {
-    /* GitHub Dark Theme - Excellent contrast and eye comfort */
-    --background: 220 13% 13%;
-    --foreground: 213 31% 91%;
-    --card: 217 19% 15%;
-    --card-foreground: 213 31% 91%;
-    --popover: 217 19% 15%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 212 92% 63%;
-    --primary-foreground: 220 13% 13%;
-    --secondary: 215 14% 21%;
-    --secondary-foreground: 213 31% 91%;
-    --muted: 215 14% 21%;
-    --muted-foreground: 215 16% 65%;
-    --accent: 215 14% 21%;
-    --accent-foreground: 213 31% 91%;
+    /* Rexerium Dark Theme */
+    --background: 0 0% 12%; /* #1E1E1E */
+    --foreground: 220 14% 96%; /* #F3F4F6 */
+    --card: 0 0% 15%;
+    --card-foreground: 220 14% 96%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 220 14% 96%;
+    --primary: 188 94% 43%; /* #06B6D4 - Electric Cyan for dark mode */
+    --primary-foreground: 0 0% 12%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 220 14% 96%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 220 14% 70%;
+    --accent: 188 94% 43%; /* Electric Cyan */
+    --accent-foreground: 0 0% 12%;
     --destructive: 0 72% 51%;
-    --destructive-foreground: 213 31% 91%;
-    --border: 215 15% 25%;
-    --input: 215 15% 25%;
-    --ring: 212 92% 63%;
-    --chart-1: 212 92% 63%;
-    --chart-2: 142 71% 45%;
+    --destructive-foreground: 220 14% 96%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 188 94% 43%; /* Electric Cyan */
+    --chart-1: 188 94% 43%; /* Electric Cyan */
+    --chart-2: 220 65% 50%; /* Lighter blue */
     --chart-3: 262 83% 58%;
     --chart-4: 38 92% 50%;
     --chart-5: 346 84% 61%;
+    
+    /* Rexerium Brand Colors (same in dark mode) */
+    --rexerium-blue: 220 65% 33%;
+    --rexerium-cyan: 188 94% 43%;
+    --rexerium-dark: 0 0% 12%;
+    --rexerium-light: 220 14% 96%;
   }
 }
 

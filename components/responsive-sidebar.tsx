@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { usePortfolioStore } from '@/store';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -28,6 +28,7 @@ interface ResponsiveSidebarProps {
 export function ResponsiveSidebar({ className }: ResponsiveSidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const {
     dbPortfolios,
     currentDBPortfolio,
@@ -65,6 +66,19 @@ export function ResponsiveSidebar({ className }: ResponsiveSidebarProps) {
     updatedAt: Date;
   }) => {
     setCurrentDBPortfolio(portfolio);
+    
+    // Navigate appropriately based on current page
+    if (pathname.startsWith('/dashboard/analytics')) {
+      // For analytics page, update URL params to reflect the selected portfolio
+      const params = new URLSearchParams(Array.from(searchParams.entries()));
+      params.set('portfolio', portfolio.id);
+      router.push(`/dashboard/analytics?${params.toString()}`, { scroll: false });
+    } else if (pathname !== '/dashboard') {
+      // For any other page, navigate to dashboard to show the selected portfolio
+      router.push('/dashboard');
+    }
+    // If already on /dashboard, just update the portfolio in store (no navigation needed)
+    
     if (isMobile) {
       close();
     }
@@ -180,7 +194,7 @@ export function ResponsiveSidebar({ className }: ResponsiveSidebarProps) {
                 onClick={() => handlePortfolioSelect(portfolio)}
                 className={cn(
                   "w-full rounded-lg border hover:bg-accent flex-shrink-0",
-                  currentDBPortfolio?.id === portfolio.id ? 'border-primary bg-accent' : '',
+                  currentDBPortfolio?.id === portfolio.id ? 'border-border bg-secondary' : '',
                   isCollapsed ? 'p-2 flex flex-col items-center justify-center' : 'p-3 text-left'
                 )}
                 style={{
