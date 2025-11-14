@@ -42,6 +42,11 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "Rexerium Crypto - Intelligent Asset Management for Digital Finance",
   description: "Balance Your Future. Intelligent asset management for digital finance. Empower your crypto decisions with precision and intelligence.",
+  icons: {
+    icon: '/logo/logo.png',
+    shortcut: '/logo/logo.png',
+    apple: '/logo/logo.png',
+  },
 };
 
 export const viewport: Viewport = {

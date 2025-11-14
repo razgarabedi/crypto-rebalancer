@@ -1,23 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-
-export const metadata = {
-  title: 'Disclaimer - Crypto Portfolio Rebalancer',
-  description: 'Disclaimer for Crypto Portfolio Rebalancer',
-};
+import { LegalPageLayout } from '@/components/legal-page-layout';
 
 export default function DisclaimerPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <LegalPageLayout>
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
-        <Button variant="ghost" asChild className="mb-6">
-          <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
-        </Button>
 
         <Card>
           <CardHeader>
@@ -185,7 +175,7 @@ export default function DisclaimerPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </LegalPageLayout>
   );
 }
 

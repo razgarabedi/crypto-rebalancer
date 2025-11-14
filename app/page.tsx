@@ -1,63 +1,227 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { ArrowRightIcon, BarChart3Icon, RefreshCwIcon, TrendingUpIcon, Brain, Sparkles, AlertTriangle } from 'lucide-react';
+import { UserNav } from '@/components/user-nav';
+import { ThemeToggle } from '@/components/theme-toggle';
 
-// Import startup module to ensure scheduler starts
-if (typeof window === 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  require('@/lib/startup');
-}
-
-// Balance Scales Visual Component
-function BalanceScales() {
+// Dynamic Rebalancing Flow Visualization
+function CryptoPortfolioVisual() {
   return (
-    <div className="relative flex items-center justify-center my-8 sm:my-12">
+    <div className="relative flex items-center justify-center mb-5 sm:mb-7 mt-4 sm:mt-6">
       <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
         {/* Glow effect */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-full h-full rounded-full bg-rexerium-cyan/20 blur-3xl animate-pulse" />
         </div>
         
-        {/* Balance Scales SVG */}
+        {/* Rotating Hexagon Pattern SVG */}
         <svg
           viewBox="0 0 200 200"
           className="w-full h-full relative z-10"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Base */}
-          <rect x="90" y="160" width="20" height="30" fill="currentColor" className="text-rexerium-blue" />
+          {/* Outer rotating hexagon */}
+          <g transform="translate(100, 100)">
+            <polygon
+              points="-60,-35 60,-35 60,35 -60,35"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-rexerium-blue/40"
+              fill="none"
+              transformOrigin="0 0"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values="0;360"
+                dur="20s"
+                repeatCount="indefinite"
+              />
+            </polygon>
+          </g>
           
-          {/* Central pillar */}
-          <rect x="95" y="60" width="10" height="100" fill="currentColor" className="text-rexerium-blue" />
+          {/* Middle rotating hexagon */}
+          <g transform="translate(100, 100)">
+            <polygon
+              points="-40,-23 40,-23 40,23 -40,23"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              className="text-rexerium-cyan/60"
+              fill="none"
+              transformOrigin="0 0"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values="360;0"
+                dur="15s"
+                repeatCount="indefinite"
+              />
+            </polygon>
+          </g>
           
-          {/* Crossbar */}
-          <rect x="20" y="60" width="160" height="6" fill="currentColor" className="text-rexerium-blue" />
+          {/* Inner rotating hexagon */}
+          <g transform="translate(100, 100)">
+            <polygon
+              points="-25,-15 25,-15 25,15 -25,15"
+              stroke="currentColor"
+              strokeWidth="3"
+              className="text-rexerium-cyan"
+              fill="none"
+              transformOrigin="0 0"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="rotate"
+                values="0;360"
+                dur="10s"
+                repeatCount="indefinite"
+              />
+            </polygon>
+          </g>
           
-          {/* Left scale */}
-          <path
-            d="M 30 66 L 30 100 L 80 100 L 80 66 Z"
+          {/* Flowing lines - representing rebalancing flow */}
+          <g>
+            {/* Top to center */}
+            <path
+              d="M 100 20 Q 100 60 100 100"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-rexerium-cyan/50"
+              fill="none"
+              strokeDasharray="3 3"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                values="0;6"
+                dur="1.5s"
+                repeatCount="indefinite"
+              />
+            </path>
+            
+            {/* Right to center */}
+            <path
+              d="M 180 100 Q 140 100 100 100"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-rexerium-blue/50"
+              fill="none"
+              strokeDasharray="3 3"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                values="0;6"
+                dur="1.8s"
+                begin="0.3s"
+                repeatCount="indefinite"
+              />
+            </path>
+            
+            {/* Bottom to center */}
+            <path
+              d="M 100 180 Q 100 140 100 100"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-rexerium-cyan/50"
+              fill="none"
+              strokeDasharray="3 3"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                values="0;6"
+                dur="1.6s"
+                begin="0.6s"
+                repeatCount="indefinite"
+              />
+            </path>
+            
+            {/* Left to center */}
+            <path
+              d="M 20 100 Q 60 100 100 100"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-rexerium-blue/50"
+              fill="none"
+              strokeDasharray="3 3"
+            >
+              <animate
+                attributeName="stroke-dashoffset"
+                values="0;6"
+                dur="1.7s"
+                begin="0.9s"
+                repeatCount="indefinite"
+              />
+            </path>
+          </g>
+          
+          {/* Corner nodes - representing assets */}
+          <circle cx="100" cy="20" r="6" fill="currentColor" className="text-rexerium-cyan">
+            <animate
+              attributeName="r"
+              values="6;8;6"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="180" cy="100" r="6" fill="currentColor" className="text-rexerium-blue">
+            <animate
+              attributeName="r"
+              values="6;8;6"
+              dur="2.2s"
+              begin="0.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="100" cy="180" r="6" fill="currentColor" className="text-rexerium-cyan">
+            <animate
+              attributeName="r"
+              values="6;8;6"
+              dur="2.1s"
+              begin="1s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="20" cy="100" r="6" fill="currentColor" className="text-rexerium-blue">
+            <animate
+              attributeName="r"
+              values="6;8;6"
+              dur="2.3s"
+              begin="1.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          
+          {/* Center core - pulsing */}
+          <circle
+            cx="100"
+            cy="100"
+            r="12"
             fill="currentColor"
             className="text-rexerium-cyan"
-            style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.6))' }}
-          />
+            style={{ filter: 'drop-shadow(0 0 10px hsl(188 94% 43%))' }}
+          >
+            <animate
+              attributeName="r"
+              values="12;16;12"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="opacity"
+              values="0.9;1;0.9"
+              dur="2s"
+              repeatCount="indefinite"
+            />
+          </circle>
           
-          {/* Right scale */}
-          <path
-            d="M 120 66 L 120 100 L 170 100 L 170 66 Z"
-            fill="currentColor"
-            className="text-rexerium-cyan"
-            style={{ filter: 'drop-shadow(0 0 8px hsl(188 94% 43% / 0.6))' }}
-          />
-          
-          {/* Connecting lines */}
-          <line x1="55" y1="66" x2="55" y2="60" stroke="currentColor" strokeWidth="2" className="text-rexerium-blue" />
-          <line x1="145" y1="66" x2="145" y2="60" stroke="currentColor" strokeWidth="2" className="text-rexerium-blue" />
-          
-          {/* Glow dots on scales */}
-          <circle cx="55" cy="83" r="4" fill="currentColor" className="text-rexerium-cyan animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(188 94% 43%))' }} />
-          <circle cx="145" cy="83" r="4" fill="currentColor" className="text-rexerium-cyan animate-pulse" style={{ filter: 'drop-shadow(0 0 6px hsl(188 94% 43%))' }} />
+          {/* Center inner dot */}
+          <circle cx="100" cy="100" r="4" fill="white" opacity="0.9" />
         </svg>
       </div>
     </div>
@@ -65,33 +229,74 @@ function BalanceScales() {
 }
 
 export default function Home() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        if (response.ok) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-background">
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="container mx-auto flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-3">
-            {/* Logo placeholder - circular R */}
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-rexerium-blue flex items-center justify-center">
-              <span className="text-white font-bold text-lg sm:text-xl font-poppins">R</span>
-            </div>
+            {/* Logo */}
+            <Image
+              src="/logo/logo.png"
+              alt="Rexerium Logo"
+              width={40}
+              height={40}
+              className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+              priority
+            />
             <h1 className="text-lg sm:text-2xl font-bold truncate font-poppins text-rexerium-blue">REXERIUM</h1>
           </div>
-          <div className="flex gap-2">
-            <Button asChild variant="ghost" size="sm">
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button asChild size="sm" className="bg-rexerium-blue hover:bg-rexerium-blue/90 text-white">
-              <Link href="/auth/register">Sign Up</Link>
-            </Button>
+          <div className="flex items-center gap-2">
+            {loading ? (
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-rexerium-blue"></div>
+            ) : isAuthenticated ? (
+              <>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/dashboard">Dashboard</Link>
+                </Button>
+                <ThemeToggle />
+                <UserNav />
+              </>
+            ) : (
+              <>
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/auth/login">Login</Link>
+                </Button>
+                <Button asChild size="sm" className="bg-rexerium-blue hover:bg-rexerium-blue/90 text-white">
+                  <Link href="/auth/register">Sign Up</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </header>
 
       <main className="flex-1">
-        <section className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 md:py-24 lg:py-32">
+        <section className="container mx-auto px-4 sm:px-6 pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16 md:pb-24 lg:pb-32">
           <div className="mx-auto max-w-4xl text-center">
-            {/* Balance Scales Visual */}
-            <BalanceScales />
+            {/* Crypto Portfolio Visualization */}
+            <CryptoPortfolioVisual />
             
             {/* Main Tagline */}
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight font-poppins text-foreground">
@@ -206,9 +411,13 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="flex flex-col items-center gap-4">
             <div className="flex items-center gap-2 mb-2">
-              <div className="w-6 h-6 rounded-full bg-rexerium-blue flex items-center justify-center">
-                <span className="text-white font-bold text-sm font-poppins">R</span>
-              </div>
+              <Image
+                src="/logo/logo.png"
+                alt="Rexerium Logo"
+                width={24}
+                height={24}
+                className="w-6 h-6 object-contain"
+              />
               <span className="font-bold text-rexerium-blue font-poppins">REXERIUM</span>
             </div>
             <p className="text-center text-sm font-inter text-muted-foreground mb-4">

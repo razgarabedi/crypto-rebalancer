@@ -1,23 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Mail, AlertCircle } from 'lucide-react';
-
-export const metadata = {
-  title: 'Contact & Support - Crypto Portfolio Rebalancer',
-  description: 'Contact and Support information for Crypto Portfolio Rebalancer',
-};
+import { Mail, AlertCircle } from 'lucide-react';
+import { LegalPageLayout } from '@/components/legal-page-layout';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background">
+    <LegalPageLayout>
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 max-w-4xl">
-        <Button variant="ghost" asChild className="mb-6">
-          <Link href="/">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Home
-          </Link>
-        </Button>
 
         <div className="space-y-6">
           <Card>
@@ -172,7 +163,7 @@ export default function ContactPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </LegalPageLayout>
   );
 }
 
