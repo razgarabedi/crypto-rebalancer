@@ -620,7 +620,7 @@ export default function DashboardPage() {
               {/* Stats Cards */}
               <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.totalValue}</CardTitle>
                     <WalletIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -633,7 +633,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.assets}</CardTitle>
                     <TrendingUpIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -644,7 +644,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.rebalanceStatus}</CardTitle>
                     <AlertCircleIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -665,7 +665,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.tradingFeesPaid}</CardTitle>
                     <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -684,7 +684,7 @@ export default function DashboardPage() {
               {/* Last Rebalanced and Order Type - 2 columns on mobile */}
               <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-3">
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-10">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.lastRebalanced}</CardTitle>
                     <RefreshCwIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
@@ -703,7 +703,7 @@ export default function DashboardPage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{t.dashboard.orderType}</CardTitle>
                     <ActivityIcon className="h-4 w-4 text-muted-foreground" />
                   </CardHeader>
