@@ -150,6 +150,30 @@ export async function activateLicense(licenseKey: string, activatedBy?: string):
       return { success: false, error: 'This license key is already activated on another server' };
     }
 
+    // Check if there's another license with the same serverId that might conflict
+    // If so, deactivate it first to avoid unique constraint violation
+    const conflictingLicense = await prisma.license.findFirst({
+      where: existingLicense
+        ? {
+            serverId: settings.serverId,
+            id: { not: existingLicense.id },
+          }
+        : {
+            serverId: settings.serverId,
+          },
+    });
+
+    if (conflictingLicense) {
+      // Deactivate the conflicting license to free up the serverId
+      await prisma.license.update({
+        where: { id: conflictingLicense.id },
+        data: {
+          isActive: false,
+          serverId: null, // Clear serverId to allow reactivation
+        },
+      });
+    }
+
     // Create or update license record
     const license = await prisma.license.upsert({
       where: { licenseKey },
@@ -167,6 +191,10 @@ export async function activateLicense(licenseKey: string, activatedBy?: string):
         activatedAt: new Date(),
         activatedBy: activatedBy || 'system',
         serverId: settings.serverId,
+        licenseType: licenseData.type,
+        expiresAt: licenseData.expiresAt,
+        maxUsers: licenseData.maxUsers,
+        features: licenseData.features || {},
       },
     });
 
